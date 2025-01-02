@@ -1,3 +1,28 @@
+/** @type {HTMLInputElement} */
+const buttons = document.querySelector("#buttons");
+
+const buttonRock = document.querySelector("#buttonRock");
+const buttonPaper = document.querySelector("#buttonPaper");
+const buttonScissors = document.querySelector("#buttonScissors");
+
+buttonRock.addEventListener("click", playRound);
+buttonPaper.addEventListener("click", playRound);
+buttonScissors.addEventListener("click", playRound);
+
+const playerPlayed = document.querySelector("#playerPlayed");
+const computerPlayed = document.querySelector("#computerPlayed");
+
+const playerPoints = document.querySelector("#playerPoints");
+const computerPoints = document.querySelector("#computerPoints");
+
+const gameStatus = document.querySelector("#gameStatus");
+
+const outcomes = {
+    rock: ["scissors"],
+    paper: ["rock"],
+    scissors: ["paper"],
+};
+
 function getComputerChoice() {
     let randomNum = Math.random();
 
@@ -14,82 +39,41 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("Please enter 'rock', 'paper', or 'scissors': ");
-    console.log(choice);
-    return choice;
+function incrementPlayerPoints() {
+    const currentPoints = parseInt(playerPoints.textContent);
+    playerPoints.textContent = currentPoints + 1;
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound(computerChoice, humanChoice) {
-        humanChoice = humanChoice.toLowerCase();
-        if (humanChoice === 'rock') {
-            if (computerChoice === 'scissors') {
-                console.log("You win! Rock beats scissors.");
-                humanScore += 1;
-            }
-            else if (computerChoice === 'paper') {
-                console.log("You lose! Paper beats rock.");
-                computerScore += 1;
-            }
-            else if (computerChoice === 'rock') {
-                console.log("It's a draw!");
-            }
-        }
-    
-        if (humanChoice === 'paper') {
-            if (computerChoice === 'rock') {
-                console.log("You win! Paper beats rock.");
-                humanScore += 1;
-            }
-            else if (computerChoice === 'scissors') {
-                console.log("You lose! Scissors beats paper.");
-                computerScore += 1;
-            }
-            else if (computerChoice === 'paper') {
-                console.log("It's a draw!");
-            }
-        }
-    
-        if (humanChoice === 'scissors') {
-            if (computerChoice === 'paper') {
-                console.log("You win! Scissors beats paper.");
-                humanScore += 1;
-            }
-            else if (computerChoice === 'rock') {
-                console.log("You lose! Rock beats scissors.");
-                computerScore += 1;
-            }
-            else if (computerChoice === 'scissors') {
-                console.log("It's a draw!");
-            }
-        }
-    }
-
-    for (i = 0; i < 5; i++)
-    {
-        let computerSelection = getComputerChoice();
-        let humanSelection = getHumanChoice();
-    
-        console.log(`Computer selection: ${computerSelection}. Human selection: ${humanSelection}`);
-    
-        playRound(computerSelection, humanSelection);
-    }
-
-    if (humanScore > computerScore) {
-        console.log("You win the game!");
-    }
-    if (humanScore < computerScore) {
-        console.log("You lose the game!");
-    }
-    if (humanScore === computerScore) {
-        console.log("The game is a draw!");
-    }
-
-    console.log(`Your score: ${humanScore}. Computer score: ${computerScore}`);
+function incrementComputerPoints() {
+    const currentPoints = parseInt(computerPoints.textContent);
+    computerPoints.textContent = currentPoints + 1;
 }
 
-playGame();
+function gameOver(winner) {
+    buttonRock.remove();
+    buttonPaper.remove();
+    buttonScissors.remove();
+    gameStatus.textContent = `Game over! ${winner} wins!`;
+}
+
+function playRound(e) {
+    const computerChoice = getComputerChoice();
+    const playerChoice = e.target.textContent.toLowerCase();
+
+    computerPlayed.textContent = computerChoice.toUpperCase();
+    playerPlayed.textContent = playerChoice.toUpperCase();
+
+    if (playerChoice === computerChoice) {
+        console.log("Draw");
+        return;
+    }
+
+    outcomes[playerChoice].includes(computerChoice) ? incrementPlayerPoints() : incrementComputerPoints();
+
+    if (parseInt(playerPoints.textContent) === 5) {
+        gameOver("Player");
+    } 
+    if (parseInt(computerPoints.textContent) === 5) {
+        gameOver("Computer");
+    }
+}

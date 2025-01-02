@@ -4,11 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        Open the console to see output.
+    <div id="game">
+        <div id="prompt">Would you like to play a game?</div>
+        <div id="gameStatus">First to 5 wins!</div>
+        <div id="buttons">
+            <button id="buttonRock">Rock</button>
+            <button id="buttonPaper">Paper</button>
+            <button id="buttonScissors">Scissors</button>
+        </div>
+        <div id="choices">
+            <div>Player Played:</div>
+            <div id="playerPlayed"></div>
+            <div>Computer Played:</div>
+            <div id="computerPlayed"></div>
+        </div>
+        <div id="score">
+            <div>Player Score:</div>
+            <div id="playerPoints">0</div>
+            <div>Computer Score:</div>
+            <div id="computerPoints">0</div>
+        </div>
     </div>
-    <script src="javascript.js"></script>
+    <script type="module" src="javascript.js"></script>
 </body>
 </html>

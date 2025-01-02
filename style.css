@@ -1,0 +1,28 @@
+#game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+#prompt {
+    display: flex;
+    justify-content: center;
+}
+
+#gameStatus {
+    display: flex;
+    justify-content: center;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#choices, #score {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
