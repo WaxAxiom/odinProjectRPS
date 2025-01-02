@@ -1,7 +1,6 @@
 #game {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: 20px;
 }
 
